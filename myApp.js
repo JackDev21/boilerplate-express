@@ -18,6 +18,13 @@ app.get("/", (req, res) => {
   res.sendFile(absolutePath);
 })
 
+app.use(  (req, res, next) => {
+
+  console.log(`${req.method} ${req.path} - ${req.ip}`)
+
+  next()
+})
+
 
 app.get("/json",  (req, res) =>{
   const MESSAGE_STYLE = process.env.MESSAGE_STYLE
@@ -32,6 +39,27 @@ app.get("/json",  (req, res) =>{
   
 })
 
+
+app.get("/now", (req, res, next) => {
+
+  let time = new Date().toString()
+
+  req.time = time
+  next()
+
+}, (req, res) =>{
+  res.send({time: req.time})
+ 
+})
+
+
+app.get("/:word/echo", (req, res) => {
+
+  let word = req.params.word
+
+  res.send({echo: word})
+
+})
 
 
 module.exports = app;
