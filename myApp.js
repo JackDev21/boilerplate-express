@@ -67,13 +67,22 @@ app.get("/:word/echo", (req, res) => {
 app.get("/name", (req,res) =>{
   let {first, last} = req.query
 
+  //first = "Jack"
+  //last = "Sparrow"
+
   res.json({name: first +" "+ last})
 
 })
 
+//POST
 
-app.post("/name",(req, res) =>{
-  
+app.post("/name", (req, res)=>{
+  let {first, last } = req.body
+
+
+  res.json({name: `${first} ${last}`})
+
 })
+
 
 module.exports = app;
