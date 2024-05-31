@@ -1,10 +1,13 @@
+const bodyParser = require('body-parser');
 let express = require('express');
 let app = express();
+
 
 require("dotenv").config()
 
 console.log("Hello World");
 
+app.use(bodyParser.urlencoded({extended: false}))
 
 // Assets at the /public route
 app.use("/public", express.static(__dirname + "/public"));
@@ -61,5 +64,16 @@ app.get("/:word/echo", (req, res) => {
 
 })
 
+app.get("/name", (req,res) =>{
+  let {first, last} = req.query
+
+  res.json({name: first +" "+ last})
+
+})
+
+
+app.post("/name",(req, res) =>{
+  
+})
 
 module.exports = app;
